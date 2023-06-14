@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<head>
+  <title>Consultas</title> 
+  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" />
+
+  <script>
+    function mostrarHistorialCliente() {
+        var cedula = document.getElementById('cedula').value;
+        fetch('/historial_clientes?cedula='+cedula)
+            .then(response => response.text())
+            .then(result => {
+                console.log("Hola");
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+  </script>
+
+</head>
+
+<body>
+
+<h2> Historial de cliente </h2>
+<table border = "2"> 
+  <thead>
+    <tr>
+      <th> Nombre </th>
+      <th> Número_telefono </th>
+      <th> Correo </th>
+      <th> Fecha_hora </th>
+      <th> Producto </th>
+      <th> Metodo_pago </th>
+      <th> Costo </th>
+    </tr>
+  </thead>
+  <tbody>
+
+    {% for cliente in clientes %}
+    <tr>
+      <td>{{ cliente[0] }}</td>
+      <td>{{ cliente[1] }}</td>
+      <td>{{ cliente[2] }}</td>
+      <td>{{ cliente[3] }}</td>
+      <td>{{ cliente[4] }}</td>
+      <td>{{ cliente[5] }}</td>
+      <td>{{ cliente[6] }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<input type="text" id="cedula" placeholder="Ingrese la cédula del cliente"><br>
+<button onclick="mostrarHistorialCliente()" style="margin-right: auto;"> Click Me! </button>
+
+</body>

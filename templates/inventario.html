@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<head>
+  <title>Consultas</title> 
+  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" />
+</head>
+
+<h2> Información de inventario </h2>
+<table border = "2"> 
+  <thead>
+    <tr>
+      <th> Producto </th>
+      <th> Existencias_actuales </th>
+      <th> ventas_realizadas </th>
+    </tr>
+  </thead>
+  <tbody>
+
+    {% for inventario in inventarios %}
+    <tr>
+      <td>{{ inventario[0] }}</td>
+      <td>{{ inventario[1] }}</td>
+      <td>{{ inventario[2] }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+  <form action="/inventario">
+  </form>  
+</table>

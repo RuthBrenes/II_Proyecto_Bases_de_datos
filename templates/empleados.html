@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<head>
+  <title>Consultas</title> 
+  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" />
+
+  <script>
+  
+    function mostrarHistorialEmpleado() {
+      var cedula = document.getElementById('cedula').value;
+      fetch('/tabla_empleados?cedula=' + cedula)
+          .then(response => response.json())
+          .then(data => {
+              console.log(data);
+              generateTable(data);
+          })
+          .catch(error => {
+              console.error('Error:', error);
+          });
+    }
+       
+        function generateTable(data) {
+            var tableBody = document.querySelector('#tablaEmpleados tbody');
+            tableBody.innerHTML = '';
+
+            data.forEach(rowData => {
+                var row = document.createElement('tr');
+                rowData.forEach(cellData => {
+                    var cell = document.createElement('td');
+                    cell.textContent = cellData;
+                    row.appendChild(cell);
+                });
+                tableBody.appendChild(row);
+            });
+        }
+        
+  </script>
+
+</head>
+
+<body>
+
+<h2> Historial de empleado </h2>
+<table border = "2" id = "tablaEmpleados"> 
+  <thead>
+    <tr>
+      <th> Nombre de empleado </th>
+      <th> Nombre de cliente </th>
+      <th> Producto vendido </th>
+      <th> Método de pago </th>
+    </tr>
+  </thead>
+  <tbody>
+
+    {% for empleado in empleados %}
+    <tr>
+      <td>{{ empleado[0] }}</td>
+      <td>{{ empleado[1] }}</td>
+      <td>{{ empleado[2] }}</td>
+      <td>{{ empleado[3] }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+  <form action="/empleados">
+  </form>  
+</table>
+
+<input type="text" id="cedula" placeholder="Ingrese la cédula del cliente"><br>
+<button onclick="mostrarHistorialEmpleado()" style="margin-right: auto;"> Click Me! </button>
+
+</body>

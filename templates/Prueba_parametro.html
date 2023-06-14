@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<head>
+  <title>Consultas</title> 
+  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" />
+
+  <script>
+    function callPythonFunction() {
+        var param = document.getElementById('cedula').value;
+        fetch('/call_python_function?param='+param)
+            .then(response => response.text())
+            .then(result => {
+                console.log(result);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+  </script>
+
+</head>
+
+<body>
+
+  <h2> Historial de empleado </h2>
+  <table border = "2"> 
+    <thead>
+      <tr>
+        <th> Nombre </th>
+        <th> Venta_realizada </th>
+        <th> Fecha </th>
+        <th> Método_pago </th>
+      </tr>
+    </thead>
+    <tbody>
+  
+      {% for empleado in empleados %}
+      <tr>
+        <td>{{ empleado[0] }}</td>
+        <td>{{ empleado[1] }}</td>
+        <td>{{ empleado[2] }}</td>
+        <td>{{ empleado[3] }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+    <form action="/empleados">
+    </form>  
+  </table>
+
+  <input type="text" id="cedula" placeholder="Cedula"><br>
+  <button onclick="callPythonFunction()" style="margin-top: 20px;"> Click Me! </button>
+
+
+</body>
