@@ -8,8 +8,9 @@ from string import Template
 import mysql.connector
 import json
 
-#Conexion a BD SQL
+#CRL + SHIFT + P
 
+#Conexion a BD SQL
 try:
     conexion = mysql.connector.connect(host = "sql5.freemysqlhosting.net", user = "sql5625051", password = "XRy6s2AUyj", database = "sql5625051", port = "3306")
     cursor = conexion.cursor()
@@ -19,7 +20,6 @@ try:
 except:
 
     print("Error al intentar conectarse")
-
 
 def abrirPaginaConsultas():
     webbrowser.open('http://localhost:5000')
